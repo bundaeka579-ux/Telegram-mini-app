@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sgpjoingroupsbot</title>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 30px 20px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #ffffff;
+            color: #222222;
+        }
+
+        .box {
+            margin-top: 50px;
+            padding: 30px 20px;
+            border-radius: 18px;
+            background: #f2f2f2;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .id {
+            margin-top: 15px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Login Telegram</h2>
+
+    <div class="box">
+        <p id="status">Memuat data Telegram...</p>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+
+        tg.ready();
+        tg.expand();
+
+        const user = tg.initDataUnsafe?.user;
+
+        if (user) {
+            document.getElementById("status").innerHTML =
+                '<div class="name">Halo, ' +
+                (user.first_name || "Pengguna") +
+                '!</div>' +
+                '<div class="id">Telegram ID: ' +
+                user.id +
+                '</div>';
+        } else {
+            document.getElementById("status").innerHTML =
+                "Data pengguna Telegram tidak tersedia.";
+        }
+    </script>
+
+</body>
+</html>
