@@ -3,114 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Sgpjoingroupsbot</title>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
-body {
-    margin: 0;
-    padding: 15px;
-    font-family: Arial, sans-serif;
-    background: #202b36;
-    color: white;
-    text-align: center;
+body{
+    margin:0;
+    padding:20px;
+    background:#202b36;
+    color:white;
+    font-family:Arial,sans-serif;
+    text-align:center;
 }
 
-.header {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 10px 0 20px;
+h1{
+    margin:20px 0 30px;
+    font-size:30px;
 }
 
-.user {
-    background: #314252;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 18px;
+#status{
+    background:#34495e;
+    padding:16px;
+    border-radius:12px;
+    margin-bottom:25px;
+    font-size:20px;
 }
 
-button {
-    width: 100%;
-    border: 0;
-    border-radius: 9px;
-    padding: 14px 8px;
-    margin: 5px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
+button{
+    width:100%;
+    border:0;
+    border-radius:12px;
+    padding:18px 10px;
+    margin:7px 0;
+    font-size:18px;
+    font-weight:bold;
+    color:white;
 }
 
-.blue {
-    background: #2684e8;
+.blue{
+    background:#2d8cff;
 }
 
-.green {
-    background: #20c866;
+.red{
+    background:#f04455;
 }
 
-.red {
-    background: #ef4450;
-}
-
-.row {
-    display: flex;
-    gap: 6px;
-}
-
-.row button {
-    width: 50%;
-}
-
-.info {
-    text-align: left;
-    margin-top: 20px;
-    background: #293846;
-    padding: 15px;
-    border-radius: 12px;
-    line-height: 1.5;
+button:active{
+    opacity:.7;
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    ⚡ TELEGRAM BOT ⚡
-</div>
+<h1>⚡ TELEGRAM BOT ⚡</h1>
 
-<div class="user">
-    <div id="welcome">🟢 BOT AKTIF</div>
-    
-<button class="blue" onclick="document.getElementById('welcome').innerText='BERHASIL'"
-    🔗 SET GROUP LINK
+<div id="status">🟢 BOT AKTIF</div>
+
+<button class="blue" onclick="setGroup()">
+🔗 SET GROUP LINK
 </button>
 
-<button class="blue" onclick="document.getElementById('welcome').innerText='MEDIA BERHASIL'"
-    🖼️ SET MEDIA + CAPTION
+<button class="blue" onclick="setMedia()">
+🖼️ SET MEDIA + CAPTION
 </button>
 
-<div class="row">
-    <button class="blue" onclick="document.getElementById('welcome').innerText='TEXT BERHASIL'"
-        💬 SET TEXT SAJA
-    </button>
+<button class="blue" onclick="setText()">
+💬 SET TEXT SAJA
+</button>
 
-    <button class="red" onclick="document.getElementById('welcome').innerText='HAPUS BERHASIL'"
-        🗑️ HAPUS MEDIA
-    </button>
-</div>
-
-<div class="row">
-    <button class="green" onclick="info('Auto
-
-        </button>
-</div>
+<button class="red" onclick="deleteMedia()">
+🗑️ HAPUS MEDIA
+</button>
 
 <script>
-function info(message) {
-    document.getElementById('welcome').innerText = message;
+function setGroup(){
+    document.getElementById("status").innerText="🔗 SET GROUP LINK";
 }
 
+function setMedia(){
+    document.getElementById("status").innerText="🖼️ SET MEDIA + CAPTION";
+}
+
+function setText(){
+    document.getElementById("status").innerText="💬 SET TEXT SAJA";
+}
+
+function deleteMedia(){
+    document.getElementById("status").innerText="🗑️ MEDIA DIHAPUS";
+}
+</script>
+
 </body>
-        </html>
+</html>
