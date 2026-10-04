@@ -6,92 +6,319 @@
 <title>Sgpjoingroupsbot</title>
 
 <style>
-body{
-    margin:0;
-    padding:20px;
-    background:#202b36;
-    color:white;
-    font-family:Arial,sans-serif;
-    text-align:center;
+* {
+  box-sizing: border-box;
 }
 
-h1{
-    margin:20px 0 30px;
-    font-size:30px;
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #202b36;
+  color: white;
+  text-align: center;
 }
 
-#status{
-    background:#34495e;
-    padding:16px;
-    border-radius:12px;
-    margin-bottom:25px;
-    font-size:20px;
+h1 {
+  font-size: 30px;
+  margin: 35px 0 45px;
 }
 
-button{
-    width:100%;
-    border:0;
-    border-radius:12px;
-    padding:18px 10px;
-    margin:7px 0;
-    font-size:18px;
-    font-weight:bold;
-    color:white;
+.page {
+  display: none;
 }
 
-.blue{
-    background:#2d8cff;
+.page.active {
+  display: block;
 }
 
-.red{
-    background:#f04455;
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 18px 10px;
+  margin: 8px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background: #2f8cff;
 }
 
-button:active{
-    opacity:.7;
+button:active {
+  transform: scale(0.98);
+}
+
+.red {
+  background: #f04455;
+}
+
+.gray {
+  background: #3b5063;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 16px;
+  margin: 12px 0;
+  border: 0;
+  border-radius: 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.box {
+  background: #304458;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.status {
+  font-size: 17px;
+  margin-bottom: 20px;
+  color: #dce8f2;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HALAMAN UTAMA -->
+<div id="home" class="page active">
+
 <h1>⚡ TELEGRAM BOT ⚡</h1>
 
-<div id="status">🟢 BOT AKTIF</div>
+<div class="box">
+  <div class="status" id="status">BOT AKTIF</div>
+</div>
 
-<button class="blue" onclick="setGroup()">
-🔗 SET GROUP LINK
+<button onclick="showPage('group')">
+  🔗 SET GROUP LINK
 </button>
 
-<button class="blue" onclick="setMedia()">
-🖼️ SET MEDIA + CAPTION
+<button onclick="showPage('media')">
+  🖼️ SET MEDIA + CAPTION
 </button>
 
-<button class="blue" onclick="setText()">
-💬 SET TEXT SAJA
+<button onclick="showPage('text')">
+  💬 SET TEXT SAJA
 </button>
 
-<button class="red" onclick="deleteMedia()">
-🗑️ HAPUS MEDIA
+<button class="red" onclick="hapusMedia()">
+  🗑️ HAPUS MEDIA
 </button>
+
+</div>
+
+
+<!-- HALAMAN GROUP LINK -->
+<div id="group" class="page">
+
+<h1>🔗 SET GROUP LINK</h1>
+
+<div class="box">
+  <div class="status">
+    Masukkan link grup Telegram
+  </div>
+
+  <input
+    id="groupLink"
+    type="text"
+    placeholder="https://t.me/namagroup"
+  >
+</div>
+
+<button onclick="simpanGroup()">
+  💾 SIMPAN
+</button>
+
+<button class="gray" onclick="showPage('home')">
+  ↩️ KEMBALI
+</button>
+
+</div>
+
+
+<!-- HALAMAN MEDIA -->
+<div id="media" class="page">
+
+<h1>🖼️ SET MEDIA + CAPTION</h1>
+
+<div class="box">
+
+  <div class="status">
+    Masukkan link gambar
+  </div>
+
+  <input
+    id="mediaLink"
+    type="text"
+    placeholder="https://..."
+  >
+
+  <div class="status">
+    Caption
+  </div>
+
+  <textarea
+    id="caption"
+    placeholder="Tulis caption di sini..."
+  ></textarea>
+
+</div>
+
+<button onclick="simpanMedia()">
+  💾 SIMPAN
+</button>
+
+<button class="gray" onclick="showPage('home')">
+  ↩️ KEMBALI
+</button>
+
+</div>
+
+
+<!-- HALAMAN TEXT -->
+<div id="text" class="page">
+
+<h1>💬 SET TEXT SAJA</h1>
+
+<div class="box">
+
+  <textarea
+    id="textMessage"
+    placeholder="Tulis pesan Telegram..."
+  ></textarea>
+
+</div>
+
+<button onclick="simpanText()">
+  💾 SIMPAN
+</button>
+
+<button class="gray" onclick="showPage('home')">
+  ↩️ KEMBALI
+</button>
+
+</div>
+
 
 <script>
-function setGroup(){
-    document.getElementById("status").innerText="🔗 SET GROUP LINK";
+
+function showPage(page) {
+
+  document.querySelectorAll('.page').forEach(function(p) {
+    p.classList.remove('active');
+  });
+
+  document.getElementById(page).classList.add('active');
+
+  window.scrollTo(0, 0);
 }
 
-function setMedia(){
-    document.getElementById("status").innerText="🖼️ SET MEDIA + CAPTION";
+
+function simpanGroup() {
+
+  var link = document.getElementById('groupLink').value.trim();
+
+  if (link === '') {
+    alert('Masukkan link grup terlebih dahulu.');
+    return;
+  }
+
+  localStorage.setItem('groupLink', link);
+
+  document.getElementById('status').innerText =
+    'GROUP LINK TERSIMPAN';
+
+  alert('Group link berhasil disimpan.');
+
+  showPage('home');
 }
 
-function setText(){
-    document.getElementById("status").innerText="💬 SET TEXT SAJA";
+
+function simpanMedia() {
+
+  var link = document.getElementById('mediaLink').value.trim();
+  var caption = document.getElementById('caption').value.trim();
+
+  localStorage.setItem('mediaLink', link);
+  localStorage.setItem('caption', caption);
+
+  document.getElementById('status').innerText =
+    'MEDIA TERSIMPAN';
+
+  alert('Media dan caption berhasil disimpan.');
+
+  showPage('home');
 }
 
-function deleteMedia(){
-    document.getElementById("status").innerText="🗑️ MEDIA DIHAPUS";
+
+function simpanText() {
+
+  var text = document.getElementById('textMessage').value.trim();
+
+  if (text === '') {
+    alert('Tulis pesan terlebih dahulu.');
+    return;
+  }
+
+  localStorage.setItem('textMessage', text);
+
+  document.getElementById('status').innerText =
+    'TEXT TERSIMPAN';
+
+  alert('Text berhasil disimpan.');
+
+  showPage('home');
 }
+
+
+function hapusMedia() {
+
+  localStorage.removeItem('mediaLink');
+  localStorage.removeItem('caption');
+
+  document.getElementById('status').innerText =
+    'MEDIA DIHAPUS';
+
+  alert('Media berhasil dihapus.');
+}
+
+
+function loadData() {
+
+  var group = localStorage.getItem('groupLink');
+  var media = localStorage.getItem('mediaLink');
+  var caption = localStorage.getItem('caption');
+  var text = localStorage.getItem('textMessage');
+
+  if (group) {
+    document.getElementById('groupLink').value = group;
+  }
+
+  if (media) {
+    document.getElementById('mediaLink').value = media;
+  }
+
+  if (caption) {
+    document.getElementById('caption').value = caption;
+  }
+
+  if (text) {
+    document.getElementById('textMessage').value = text;
+  }
+}
+
+loadData();
+
 </script>
 
 </body>
-</html>
+    </html>
