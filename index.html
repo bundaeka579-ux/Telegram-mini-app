@@ -1,75 +1,106 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sgpjoingroupsbot</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>Sgpjoingroupsbot</title>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 30px 20px;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #ffffff;
-            color: #222222;
-        }
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-        .box {
-            margin-top: 50px;
-            padding: 30px 20px;
-            border-radius: 18px;
-            background: #f2f2f2;
-        }
+<style>
+body {
+    margin: 0;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    background: #202b36;
+    color: white;
+    text-align: center;
+}
 
-        h2 {
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
+.header {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0 20px;
+}
 
-        .name {
-            font-size: 22px;
-            font-weight: bold;
-        }
+.user {
+    background: #314252;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 18px;
+}
 
-        .id {
-            margin-top: 15px;
-            color: #666;
-        }
-    </style>
+button {
+    width: 100%;
+    border: 0;
+    border-radius: 9px;
+    padding: 14px 8px;
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+.blue {
+    background: #2684e8;
+}
+
+.green {
+    background: #20c866;
+}
+
+.red {
+    background: #ef4450;
+}
+
+.row {
+    display: flex;
+    gap: 6px;
+}
+
+.row button {
+    width: 50%;
+}
+
+.info {
+    text-align: left;
+    margin-top: 20px;
+    background: #293846;
+    padding: 15px;
+    border-radius: 12px;
+    line-height: 1.5;
+}
+</style>
 </head>
 
 <body>
 
-    <h2>Login Telegram</h2>
+<div class="header">
+    ⚡ TELEGRAM BOT ⚡
+</div>
 
-    <div class="box">
-        <p id="status">Memuat data Telegram...</p>
-    </div>
+<div class="user">
+    <div id="welcome">Memuat akun...</div>
+</div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
+<button class="blue" onclick="info('Pengaturan Group')">
+    🔗 SET GROUP LINK
+</button>
 
-        tg.ready();
-        tg.expand();
+<button class="blue" onclick="info('Pengaturan Media')">
+    🖼️ SET MEDIA + CAPTION
+</button>
 
-        const user = tg.initDataUnsafe?.user;
+<div class="row">
+    <button class="blue" onclick="info('Teks')">
+        💬 SET TEXT SAJA
+    </button>
 
-        if (user) {
-            document.getElementById("status").innerHTML =
-                '<div class="name">Halo, ' +
-                (user.first_name || "Pengguna") +
-                '!</div>' +
-                '<div class="id">Telegram ID: ' +
-                user.id +
-                '</div>';
-        } else {
-            document.getElementById("status").innerHTML =
-                "Data pengguna Telegram tidak tersedia.";
-        }
-    </script>
+    <button class="red" onclick="info('Hapus Media')">
+        🗑️ HAPUS MEDIA
+    </button>
+</div>
 
-</body>
-</html>
+<div class="row">
+    <button class="green" onclick="info('Auto
